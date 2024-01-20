@@ -8,13 +8,15 @@ fn main() {
 
     let secret_number = gen_secret_number();
 
+    let mut should_break = false;
+
     loop {
 
         let guess = read_guess();
        
-        let result_ordering = compare_guess_to_secret(&guess, &secret_number);
+        compare_guess_to_secret(&guess, &secret_number, &mut should_break);
 
-        if result_ordering == Ordering::Equal {
+        if should_break {
             break;
         }
 
@@ -55,14 +57,15 @@ fn read_guess() -> i32 {
     return guess;
 }
 
-fn compare_guess_to_secret(guess: &i32, secret_number: &i32) -> Ordering {
+fn compare_guess_to_secret(guess: &i32, secret_number: &i32, should_break: &mut bool) {
     let result_ordering = guess.cmp(&secret_number);
 
     match result_ordering {
         Ordering::Less => println!("Too low!"),
         Ordering::Greater => println!("Too high!"),
-        Ordering::Equal => println!("You win!")
+        Ordering::Equal => {
+            println!("You win!");
+            *should_break = true;
+        }
     }
-
-    return result_ordering;
 }
