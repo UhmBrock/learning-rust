@@ -1,5 +1,5 @@
 [package]
-name = "bad_stack"
+name = "Ex3_bad_linked_list"
 version = "0.1.0"
 edition = "2021"
 
